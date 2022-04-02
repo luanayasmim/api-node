@@ -11,7 +11,9 @@ router.get('/', (request, response) => {
   response.status(200).json({message: 'Deu tudo certo na primeira requisição'});
 });
 //adiciona infomações 
-router.post('/', (request, response)=>{
+router.post('/', async (request, response)=>{
+  const {email, password, user} = request.body;
+  awaitdb.insertUser(email, password, user);
   response.status(201).json({message:'Cadastrei um novo usuário!'});
 });
 
