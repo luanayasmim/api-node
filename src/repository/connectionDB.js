@@ -5,7 +5,7 @@ async function connect(){
         host: 'localhost', 
         user: 'root',
         password: '',
-        database: 'clinicaDB'
+        database: 'clinicadb'
     });
     return connection;
 };

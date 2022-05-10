@@ -1,5 +1,5 @@
 import express, { request, response } from 'express';
-import db from '../../service/userService.js';
+import db from '../service/userService.js';
 import { body, validationResult } from 'express-validator';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.post('/', [
   //Middleware
   body("email").isEmail().withMessage('O email informado é inválido'),
   // body(user).is().withMessage(''),
-  body("password").isEmpty().withMessage('Informe a senha!'),
+  body("password").not().isEmpty().withMessage('Informe a senha!'),
 ], async (request, response) => {
   //Validação dos dados (request)
   const errors=validationResult(request);

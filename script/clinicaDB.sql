@@ -85,3 +85,7 @@ CREATE TABLE tbl_historicos_prontuarios(
     
     CONSTRAINT FK_id_atendimento FOREIGN KEY (FK_id_atendimento) REFERENCES tbl_atendimentos(id_atendimento)
 );
+
+select * from tbl_usuarios;
+
+SELECT(email, senha) from tbl_usuarios;
