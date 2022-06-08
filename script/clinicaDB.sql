@@ -10,13 +10,13 @@ CREATE TABLE tbl_usuarios(
 );
 
 CREATE TABLE tbl_profissoes(
-	id_profissao int(11) primary key,
+	id_profissao int(11) primary key auto_increment,
     nome_profissao varchar(45),
-    profissao_deletada tinyint(1)
+    profissao_deletada tinyint(1) default 0
 );
 
 CREATE TABLE tbl_enderecos(
-	id_endereco int(11) primary key,
+	id_endereco int(11) primary key auto_increment,
     cep int(10),
     rua varchar(45),
 	numero varchar(45),
@@ -26,7 +26,7 @@ CREATE TABLE tbl_enderecos(
 );
 
 CREATE TABLE tbl_especialistas(
-	id_especialista int(11) primary key,
+	id_especialista int(11) primary key auto_increment,
     registro varchar(45),
     nome_especialista varchar(45),
     telefone_especialista varchar(45),
@@ -41,13 +41,13 @@ CREATE TABLE tbl_especialistas(
 );
 
 CREATE TABLE tbl_clientes(
-	id_cliente int(11) primary key,
+	id_cliente int(11) primary key auto_increment,
     cpf varchar(11),
     nome_cliente varchar(45),
     telefone_cliente varchar(45),
     celular_cliente varchar(45),
     email_cliente varchar(45),
-    tipo_sanguineo ENUM('A', 'B', 'O', 'AB'),
+    tipo_sanguineo ENUM('A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'),
     FK_id_endereco int(11),
     cliente_deletado tinyint(1),
     
@@ -55,7 +55,7 @@ CREATE TABLE tbl_clientes(
 );
 
 CREATE TABLE tbl_prontuarios(
-	id_prontuario int(11) primary key,
+	id_prontuario int(11) primary key auto_increment,
     data_prontuario date,
     FK_id_cliente int(11),
     
@@ -63,22 +63,21 @@ CREATE TABLE tbl_prontuarios(
 );
 
 
-CREATE TABLE tbl_atendimentos (
-    id_atendimento INT(11) PRIMARY KEY,
-    data_agendada DATETIME,
-    data_atendimento DATETIME,
-    valor_atendimento DECIMAL(6 , 2 ),
-    status_atendimento ENUM('Agendado', 'Realizado', 'Cancelado'),
-    FK_id_prontuario INT(11),
-    FK_id_especialista INT(11),
-    CONSTRAINT FK_id_prontuario FOREIGN KEY (FK_id_prontuario)
-        REFERENCES tbl_prontuarios (id_prontuario),
-    CONSTRAINT FK_id_especialista FOREIGN KEY (FK_id_especialista)
-        REFERENCES tbl_especialistas (id_especialista)
+CREATE TABLE tbl_atendimentos(
+	id_atendimento int(11) primary key auto_increment,
+    data_agendada datetime,
+    data_atendimento datetime,
+    valor_atendimento decimal(6,2),
+    status_atendimento enum('agendado', 'realizado', 'cancelado'),
+    FK_id_prontuario int(11),
+    FK_id_especialista int(11),
+    
+	CONSTRAINT FK_id_prontuario FOREIGN KEY (FK_id_prontuario) REFERENCES tbl_prontuarios(id_prontuario),
+	CONSTRAINT FK_id_especialista FOREIGN KEY (FK_id_especialista) REFERENCES tbl_especialistas(id_especialista)
 );
 
 CREATE TABLE tbl_historicos_prontuarios(
-	id_historico int(11) primary key,
+	id_historico int(11) primary key auto_increment,
     data_atendimento datetime,
     descricao text,
     FK_id_atendimento int(11),
@@ -86,6 +85,6 @@ CREATE TABLE tbl_historicos_prontuarios(
     CONSTRAINT FK_id_atendimento FOREIGN KEY (FK_id_atendimento) REFERENCES tbl_atendimentos(id_atendimento)
 );
 
-select * from tbl_usuarios;
-
-SELECT(email, senha) from tbl_usuarios;
+SELECT * FROM tbl_enderecos;
+SELECT * FROM tbl_clientes;
+SELECT * FROM tbl_especialistas;
